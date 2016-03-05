@@ -1,7 +1,7 @@
 <div ng-include="'app/header.html'"></div>
 
 <div id="posts-container">
-
+hello{{messages}}
   <div class="posts" ng-repeat="post in posts |
     orderBy:'-post.created':true |
     filter: searchFor |
@@ -14,7 +14,7 @@
         {{ TimeService.relativeDate(post.created) }}
         <span class="num-comments"> {{ numberOfComments[post._id] }} Comment{{ + numberOfComments[post._id] !== 1 ? 's' : '' }}</span>
       </p>
-  </div>
+  </div>  
 
   <div class="sidebar">
     <div class="search">

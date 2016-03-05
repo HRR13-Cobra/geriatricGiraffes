@@ -177,7 +177,6 @@ angular.module('hackoverflow.services', [])
   };
 
 })
-
 .factory('ForumService', ['$rootScope', function ($rootScope) {
 
   var currentForum = {
@@ -201,6 +200,9 @@ angular.module('hackoverflow.services', [])
   return {
     currentForum: currentForum
   };
+}])
+.factory('ChatService', ['socketFactory', function(socketFactory) {
+  return socketFactory();
 }])
 
 //Added conection to socket/server

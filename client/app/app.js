@@ -9,7 +9,8 @@ angular.module('hackoverflow', [
   'ngRoute',
   'ngSanitize',
   'satellizer',
-  'hackoverflow.auth'
+  'hackoverflow.auth',
+  'btford.socket-io'
 ])
 
 .run(function($rootScope, $auth) {

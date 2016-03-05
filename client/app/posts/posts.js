@@ -6,7 +6,17 @@ angular.module('hackoverflow.posts', [
 .config(function ($httpProvider, $urlRouterProvider, $stateProvider) {
 })
 
-.controller('PostsController', function ($scope, $stateParams, $state, Posts, Comments, TimeService, ForumService) {
+.controller('PostsController', function ($scope, $stateParams, $state, Posts, ChatService,Comments, TimeService, ForumService, Socket) {
+  $scope.messages = [];
+  
+  // Socket.on('message', function(data) {
+  //   $scope.messages.push(data.message);
+  // });
+
+  ChatService.on('message', function(data) {
+    $scope.messages.push(data.message);
+  })
+
   $scope.posts = [];
   $scope.forums = [];
   $scope.numberOfComments = {};
