@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
+// var io = require('socket.io')
 
 //mongoose.connect('mongodb://localhost/hackoverflow'); //connect to mongo database
 
@@ -43,13 +44,20 @@ require('./config/middleware.js')(app, express);
 
  //app.use(express.static(__dirname + '/../client'));
 
+var port = process.env.PORT || 8100;
 
-var port = process.env.PORT || 8000;
+// app.listen(port)
+var io = require ('socket.io').listen(app.listen(port));
 
-app.listen(port);
+io.sockets.on('connection', function(socket){  
+    console.log('SOCKET WORKING')
+    socket.on('send msg', function(data){
+      io.sockets.emit('get msg', data)
+    })
+})
+
 
 module.exports = app;
-
 
 // Comments from Angular Server file.
 /* Walkthrough of the server

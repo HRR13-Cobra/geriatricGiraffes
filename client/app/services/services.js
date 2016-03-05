@@ -201,4 +201,13 @@ angular.module('hackoverflow.services', [])
   return {
     currentForum: currentForum
   };
-}]);
+}])
+
+//Added conection to socket/server
+.factory('Socket', function() {
+
+  var socket = io.connect('http://localhost:8100');
+  return socket;
+
+});
+

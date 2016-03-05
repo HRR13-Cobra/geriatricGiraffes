@@ -45,6 +45,11 @@ angular.module('hackoverflow.posts', [
     });
   };
 
+  //CREATE function that appends each message to the chatbox
+  $scope.sendChat = function sendChat(message){
+    $("#messages").append($("<li>").text(message))
+  }
+
   $scope.getPosts($scope.forum);
   $scope.getForums();
 });

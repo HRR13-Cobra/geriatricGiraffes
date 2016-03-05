@@ -1,4 +1,5 @@
 angular.module('hackoverflow', [
+  'hackoverflow.chat',
   'hackoverflow.services',
   'hackoverflow.posts',
   'hackoverflow.add-post',
@@ -41,7 +42,7 @@ angular.module('hackoverflow', [
   $stateProvider, $locationProvider, $authProvider) {
 
   $authProvider.github({
-    clientId: 'b09b1334afed657344e5'
+    clientId: '379777b89264293ccc3c'
   });
 
   $locationProvider.html5Mode(true);
@@ -80,5 +81,10 @@ angular.module('hackoverflow', [
       // url: '/signup',
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
+    })
+    .state('chat', {
+      // url: '/chat',
+      templateUrl: 'app/chat/chat.html',
+      controller: 'ChatController'
     });
 });
