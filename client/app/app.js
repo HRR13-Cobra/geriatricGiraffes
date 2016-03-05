@@ -1,6 +1,7 @@
 angular.module('hackoverflow', [
   'hackoverflow.services',
   'hackoverflow.posts',
+  'hackoverflow.postsChart',
   'hackoverflow.add-post',
   'hackoverflow.edit-post',
   'hackoverflow.comments',
@@ -31,7 +32,6 @@ angular.module('hackoverflow', [
 })
 
 .controller('AppController', function($scope, $location, $auth) {
-
   // this ensures that application fully reboots and
   // defaults to main page if user reloads a page.
   $location.path("/");
@@ -41,7 +41,7 @@ angular.module('hackoverflow', [
   $stateProvider, $locationProvider, $authProvider) {
 
   $authProvider.github({
-    clientId: 'b09b1334afed657344e5'
+    clientId: '379777b89264293ccc3c'
   });
 
   $locationProvider.html5Mode(true);

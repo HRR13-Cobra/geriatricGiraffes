@@ -44,9 +44,11 @@ require('./config/middleware.js')(app, express);
  //app.use(express.static(__dirname + '/../client'));
 
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8100;
 
-app.listen(port);
+app.listen(port, function(){
+  console.log('listening on port ' + port);
+});
 
 module.exports = app;
 

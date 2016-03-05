@@ -17,6 +17,8 @@ angular.module('hackoverflow.posts', [
     // TODO: need to pass in forum to Posts.getPosts()
     Posts.getPosts('').then(function (data) {
       $scope.posts = data.data;
+
+      console.log($scope.posts);
       // this creates an object $scope.numberOfComments that
       // keeps track of each posts number of comments. not
       // ideal, but works. need to refactor how we go
@@ -40,11 +42,12 @@ angular.module('hackoverflow.posts', [
   };
 
   $scope.getNumberOfComments = function getNumberOfComments(postId) {
-    Comments.getNumberOfComments(postId).then(function (data) {
-      $scope.numberOfComments[postId] = data.data;
+    Comments.getNumberOfComments(postId).then(function (results) {
+      $scope.numberOfComments[postId] = results.data;
     });
   };
 
   $scope.getPosts($scope.forum);
   $scope.getForums();
+
 });
