@@ -1,0 +1,27 @@
+<ion-view view-title="Add A Post">
+  <ion-content class="padding">
+
+    <div id="add-post-container" class="list">
+      <form name="addPostForm" ng-submit="submit(title, body, forum)">
+
+        <label class="item item-input">
+          <input type="text" ng-model="title" required placeholder="Ask your question"/>
+        </label>
+        <label class="item item-input">
+          <textarea ng-model="body" placeholder="Feel free to elaborate"></textarea>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Select Category
+          </div>
+          <select ng-model="forum" ng-init="somethingHere = options[0]" ng-options="forum for forum in forums"></select>
+        </label>
+        <button class="button button-calm" type="submit" ng-disabled="addPostForm.$invalid" ng-Class="(title && forum !== 'Please choose a forum') ?
+                'buttonEnabled' : 'buttonDisabled'">
+          Ask a Quesiton</button>
+      </form>
+
+    </div>
+
+  </ion-content>
+</ion-view>

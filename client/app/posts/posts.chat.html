@@ -1,0 +1,16 @@
+<div>
+  <div class="chatBox">
+    <p ng-repeat="msg in msgs track by $index">{{msg}}</p>
+
+      <!-- <ul id="messages">
+      <li ng-repeat="msg in msgs track by $index">{{msg}}</li>
+      </ul> -->
+  </div>
+
+  <br />
+
+  <form ng-submit="sendMsg()" class="chat" action="">
+    <input type="text" ng-model="msg.text" placeholder="Chat with others" />
+<!--     <button ng-submit="sendChat()">Send</button>
+ -->  </form>
+</div>
