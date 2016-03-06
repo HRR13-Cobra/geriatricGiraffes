@@ -12,7 +12,6 @@
         <span ng-bind="post.author"></span> -
         {{ TimeService.relativeDate(post.created) }}
 
-        <posts-chart data="'hi'"></posts-chart>
         <span>upvote</span>  <span>downvote</span>
         <span class="num-comments"> {{ numberOfComments[post._id] }} Comment{{ + numberOfComments[post._id] !== 1 ? 's' : '' }}</span>
 

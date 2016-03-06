@@ -80,5 +80,10 @@ angular.module('hackoverflow', [
       // url: '/signup',
       templateUrl: 'app/auth/signup.html',
       controller: 'AuthController'
-    });
+    })
+    .state('user', {
+      url: '/userprofile',
+      templateUrl: 'app/user/user.html',
+      controller: 'UserController'
+    })
 });
