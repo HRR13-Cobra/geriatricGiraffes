@@ -12,7 +12,6 @@ angular.module('hackoverflow.posts', [
   $scope.numberOfComments = {};
   $scope.forum = ForumService.currentForum.model.forum;
   $scope.TimeService = TimeService;
-
   $scope.getPosts = function getPosts(forum) {
     // TODO: need to pass in forum to Posts.getPosts()
     Posts.getPosts('').then(function (data) {
