@@ -5,11 +5,12 @@ angular.module('hackoverflow.profile', [
 .config(function ($stateProvider) {
 })
 
-.controller('UserController', function ($scope, $state, Posts,Comments, $rootScope, Auth){
+.controller('UserController', function ($scope, TimeService, $state, Posts,Comments, $rootScope, Auth){
   $scope.latest = true;
   $scope.toggleLatest = function () {
     $scope.latest = !$scope.latest;
   }
+  $scope.TimeService = TimeService;
   $scope.username;
   $scope.userPosts = [];
   $scope.userComments = [];
@@ -40,7 +41,7 @@ angular.module('hackoverflow.profile', [
       // Generate a Bates distribution of 10 random variables.
       console.log($scope.userPosts);
       dates = _.pluck($scope.userPosts, 'created').map(function(date){
-        console.log(date);
+        // console.log(date);
         return Date.parse(date);
       });
 
@@ -63,7 +64,7 @@ angular.module('hackoverflow.profile', [
           .bins(x.ticks(d3.time.day, 1))
           (dates)
 
-          console.log(data);
+          // console.log(data);
 
       var y = d3.scale.linear()
           // .domain([0, d3.max(data, function(d) { return d.y; })])
@@ -88,7 +89,7 @@ angular.module('hackoverflow.profile', [
             return i * 21;
           })
           .attr('y', function(d, i) {
-            console.log(d, i)
+            // console.log(d, i)
             return i;
           })
             // return x(new Date(d.x)); })
