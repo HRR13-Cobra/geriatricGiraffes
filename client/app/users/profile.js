@@ -5,7 +5,7 @@ angular.module('hackoverflow.profile', [
 .config(function ($stateProvider) {
 })
 
-.controller('UserController', function ($scope, TimeService, $state, Posts,Comments, $rootScope, Auth){
+.controller('UserController', function ($scope, TimeService, $state, Posts,Comments, $rootScope, Auth, $stateParams){
   $scope.latest = true;
   $scope.toggleLatest = function () {
     $scope.latest = !$scope.latest;
@@ -14,6 +14,8 @@ angular.module('hackoverflow.profile', [
   $scope.username;
   $scope.userPosts = [];
   $scope.userComments = [];
+  $scope.selectedUser = $stateParams.user;
+  console.log($stateParams, ' is selected');
   var dates;
   var canvas = d3.select("#userPosts");
   var parseDate = d3.time.format("%Y-%m-%d");
@@ -45,9 +47,6 @@ angular.module('hackoverflow.profile', [
         return Date.parse(date);
       });
 
-      console.log(dates);
-      // var values = d3.range(1000).map(d3.random.bates(10));
-      // A formatter for counts.
       var formatCount = d3.format(",.0f");
 
       var margin = {top: 10, right: 30, bottom: 30, left: 30},
@@ -59,15 +58,12 @@ angular.module('hackoverflow.profile', [
           // .domain([0, 1])
           .range([0, width]);
 
-      // Generate a histogram using twenty uniformly-spaced bins.
+      // Generate a histogram using calendar spaced bins
       var data = d3.layout.histogram()
           .bins(x.ticks(d3.time.day, 1))
           (dates)
 
-          // console.log(data);
-
       var y = d3.scale.linear()
-          // .domain([0, d3.max(data, function(d) { return d.y; })])
           .domain([0,10])
           .range([height, 0]);
 
@@ -118,8 +114,5 @@ angular.module('hackoverflow.profile', [
     .catch(function(err){
       console.error(err);
     })
-// time of posts
-// their likes
-
 
 })

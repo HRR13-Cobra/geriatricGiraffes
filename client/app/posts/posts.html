@@ -9,7 +9,8 @@
     <a ui-sref="comments({post: post})">
       <h2 ng-bind="post.title"></h2></a>
       <p>
-        <span ng-bind="post.author"></span> -
+<!-- should dynamic author name be inserted? -->
+        <span ui-sref="profile({user: post.author})"ng-bind="post.author"></span> -
         {{ TimeService.relativeDate(post.created) }}
 
         <span>upvote</span>  <span>downvote</span>

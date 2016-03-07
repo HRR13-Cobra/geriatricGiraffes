@@ -52,7 +52,8 @@ $authProvider.github({
 $urlRouterProvider.otherwise('signin');
 $stateProvider
   .state('profile', {
-    url: '/profile',
+    params:{'user':null},
+    url: '/profile/',
     templateUrl: 'app/users/profile.html',
     controller: 'UserController',
   }) 

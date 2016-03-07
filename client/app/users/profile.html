@@ -1,23 +1,29 @@
 <div ng-include="'app/header.html'"></div>
-<h1>{{username}}</h1>
-<!-- Fetch all the posts data related to the user -->
-<input type="button" ng-click="toggleLatest()" value="Show Latest">
 
-<div>
+<nav style="width:100%">
+  <h1 style="width:20%; float:left">{{username}}</h1>
+  <!-- Fetch all the posts data related to the user -->
+  <button ng-click="toggleLatest()">Show Latest</button>
+</nav>
+<div class="userBlock">
 <div class="twoColumns" style="float:left">
-<h2>Posts Written: {{userPosts.length}}</h2>
-  <div ng-repeat="post in userPosts | orderBy:post.created: latest">
-  <h4>{{post.title}}</h4>
-  <span>{{ TimeService.relativeDate(post.created)}}</span>
+  <div class="content">
+  <h2 >{{userPosts.length}} Posts</h2>
+    <div ng-repeat="post in userPosts | orderBy:post.created: latest">
+    <h4>{{post.title}}</h4>
+    <span>{{ TimeService.relativeDate(post.created)}}</span>
+    </div>
   </div>
 </div>
 
 <div class="twoColumns" style="float:right">
-<h2>Comments Posted: {{userComments.length}}</h2>
+<div class="content">
+<h2>{{userComments.length}} Comments</h2>
   <div ng-repeat="comment in userComments | orderBy:comment.created: latest">
   <h4>{{comment.body}}</h4>
   <span>{{ TimeService.relativeDate(comment.created)}}</span>
   </div>
+</div>
 </div>
 </div>
 <svg id="userPosts" width="100%" height="500px"></svg>
