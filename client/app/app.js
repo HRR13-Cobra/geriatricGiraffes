@@ -84,7 +84,7 @@ $stateProvider
     params: {'post': null},
     url: '/comments',
     templateUrl: 'app/comments/comments.html',
-    controller: 'ChatController'
+    controller: 'CommentsController'
   })
   .state('signin', {
     url: '/signin',

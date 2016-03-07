@@ -17,7 +17,6 @@ angular.module('hackoverflow.posts', [
     Posts.getPosts('').then(function (data) {
       $scope.posts = data.data;
 
-      console.log($scope.posts);
       // this creates an object $scope.numberOfComments that
       // keeps track of each posts number of comments. not
       // ideal, but works. need to refactor how we go
@@ -29,6 +28,7 @@ angular.module('hackoverflow.posts', [
   };
   $scope.setUsername = function (username) {
     console.log('redirecting to...' + username);
+    
   }
   $scope.getForums = function getForums(forum) {
     Posts.getForums().then(function (data) {
