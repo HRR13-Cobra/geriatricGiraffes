@@ -1,4 +1,5 @@
 angular.module('hackoverflow', [
+  'hackoverflow.chat',
   'hackoverflow.services',
   'hackoverflow.posts',
   'hackoverflow.add-post',
@@ -8,7 +9,8 @@ angular.module('hackoverflow', [
   'ngRoute',
   'ngSanitize',
   'satellizer',
-  'hackoverflow.auth'
+  'hackoverflow.auth',
+  'luegg.directives'
 ])
 
 .run(function($rootScope, $auth) {
@@ -30,55 +32,56 @@ angular.module('hackoverflow', [
   };
 })
 
-.controller('AppController', function($scope, $location, $auth) {
+// .controller('AppController', function($scope, $location, $auth) {
 
-  // this ensures that application fully reboots and
-  // defaults to main page if user reloads a page.
-  $location.path("/");
-})
+//   // this ensures that application fully reboots and
+//   // defaults to main page if user reloads a page.
+//   $location.path("/");
+// })
 
 .config(function($httpProvider, $urlRouterProvider,
-  $stateProvider, $locationProvider, $authProvider) {
+$stateProvider, $locationProvider, $authProvider) {
 
   $authProvider.github({
-    clientId: 'b09b1334afed657344e5'
+    clientId: '379777b89264293ccc3c'
   });
 
-  $locationProvider.html5Mode(true);
+// $locationProvider.html5Mode(true);
 
-  $urlRouterProvider.otherwise('signin');
-  $stateProvider
-    .state('posts', {
-      params: {'forum': 'Angular'},
-      // url: '/',
-      templateUrl: 'app/posts/posts.html',
-      controller: 'PostsController'
-    })
-    .state('add-post', {
-      // url: '/add-post',
-      templateUrl: 'app/posts/add-post.html',
-      controller: 'AddPostController'
-    })
-    .state('edit-post', {
-      params: {'post': null},
-      // url: '/edit-post',
-      templateUrl: 'app/posts/add-post.html',
-      controller: 'EditPostController'
-    })
-    .state('comments', {
-      params: {'post': null},
-      // url: '/comments',
-      templateUrl: 'app/comments/comments.html',
-      controller: 'CommentsController'
-    })
-    .state('signin', {
-      url: '/',
-      templateUrl: 'app/auth/signin.html',
-      controller: 'AuthController'
-    })
-    .state('signup', {
-      // url: '/signup',
-      templateUrl: 'app/auth/signup.html',
-      controller: 'AuthController'
-    });
+$urlRouterProvider.otherwise('signin');
+$stateProvider
+  .state('posts', {
+    params: {'forum': 'Angular'},
+    url: '/',
+    templateUrl: 'app/posts/posts.html',
+    controller: 'PostsController'
+  })
+  .state('posts.chat', {
+    params: {'forum': 'Angular'},
+    url: '/:chat',
+    templateUrl: 'app/posts/posts.chat.html',
+    controller: 'ChatController'
+  })
+  .state('add-post', {
+    url: '/add-post',
+    templateUrl: 'app/posts/add-post.html',
+    controller: 'AddPostController'
+  })
+  .state('edit-post', {
+    params: {'post': null},
+    url: '/edit-post',
+    templateUrl: 'app/posts/add-post.html',
+    controller: 'EditPostController'
+  })
+  .state('comments', {
+    params: {'post': null},
+    url: '/comments',
+    templateUrl: 'app/comments/comments.html',
+    controller: 'ChatController'
+  })
+  .state('signin', {
+    url: '/signin',
+    templateUrl: 'app/auth/signin.html',
+    controller: 'AuthController'
+  })
 });

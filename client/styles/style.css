@@ -42,6 +42,29 @@ a:active {
   text-align: right;
 }
 
+.chat input {
+  width: 200px;
+  margin: 0 0 30px 0;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: left;
+}
+
+#chatBox {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  height: 200px;
+  overflow: auto;
+  text-align: left;
+}
+
+#chatBttn {
+  font-weight: 600;
+  font-size: 50px; 
+}
+
 button {
   display: inline-block;
   margin: 14px 0 50px 40px;
@@ -58,6 +81,7 @@ button {
   opacity: 1.0;
   cursor: pointer;
 }
+
 .buttonDisabled {
   opacity: 0.25;
   cursor: not-allowed;

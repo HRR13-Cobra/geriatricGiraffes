@@ -1,0 +1,12 @@
+<div>
+  <div scroll-glue id="chatBox">
+    <p class="messages" ng-repeat="msg in msgs track by $index"> <b> {{user}}:</b> <br /> {{msg}}</p>
+  </div>
+
+  <br />
+
+  <form ng-submit="sendMsg()" class="chat">
+    <input type="text" ng-model="msg.text" placeholder="Chat with others" />
+<!-- <button ng-click="sendMsg()">Send</button> -->  
+  </form>
+</div>

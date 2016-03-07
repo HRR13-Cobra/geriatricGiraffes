@@ -7,11 +7,16 @@ angular.module('hackoverflow.add-post', [
 })
 
 .controller('AddPostController', function ($scope, $rootScope, $state,
-  $stateParams, Posts, ForumService) {
+  $stateParams, Posts, ForumService, Auth) {
   $scope.title = '';
   $scope.body = '';
   $scope.forums = [];
   $scope.forum = ForumService.currentForum.model.forum;
+
+  Auth.getUser()
+    .then(function(response){
+        $rootScope.user = response.data.displayName;
+    });
 
   $scope.getForums = function getForums() {
     Posts.getForums().then(function (data) {

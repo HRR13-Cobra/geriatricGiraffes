@@ -6,7 +6,7 @@ angular.module('hackoverflow.edit-post', [
 .config(function ($stateProvider) {
 })
 
-.controller('EditPostController', function ($scope, $state, $stateParams, Posts) {
+.controller('EditPostController', function ($scope, $rootScope, $state, $stateParams, Posts, Auth) {
   $scope.forums = [];
   $scope.forum = 'Please choose a forum';
   $scope.post = $stateParams.post;
@@ -15,6 +15,11 @@ angular.module('hackoverflow.edit-post', [
   $scope.title = $scope.post.title;
   $scope.body = $scope.post.body;
   $scope.forum = $scope.post.forum;
+
+  Auth.getUser()
+    .then(function(response){
+        $rootScope.user = response.data.displayName;
+  });
 
   $scope.getForums = function getForums() {
     Posts.getForums().then(function(data) {
