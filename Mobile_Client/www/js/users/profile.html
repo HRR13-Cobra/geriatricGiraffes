@@ -20,20 +20,20 @@
         {{userPosts.length}}
         Posts
       </div>
-      <a ng-repeat="post in userPosts | orderBy:post.created: latest" class="item" href="#">
+      <div ui-sref="tab.posts-comments({post: post})" ng-repeat="post in userPosts | orderBy:post.created: latest" class="item" href="#">
         {{post.title}}
         -
         {{ TimeService.relativeDate(post.created)}}
-      </a>
+      </div>
       <div class="item item-divider">
         {{userComments.length}}
         Comments
       </div>
-      <a ng-repeat="comment in userComments | orderBy:comment.created: latest" class="item" href="#">
+      <div ng-repeat="comment in userComments | orderBy:comment.created: latest" class="item" href="#">
         {{comment.body}}
         -
         {{ TimeService.relativeDate(comment.created)}}
-      </a>
+      </div>
     </div>
 
     <div id="chart"></div>

@@ -155,7 +155,6 @@ angular.module('hackoverflow.profile', [
         })
         .attr("d", function(d) {
           // log the result of the arc generator to show how cool it is :)
-          console.log(arc(d));
           return arc(d);
         });
 

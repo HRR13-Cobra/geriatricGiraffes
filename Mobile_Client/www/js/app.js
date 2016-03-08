@@ -65,7 +65,7 @@ angular.module('starter', ['ionic', 'hackoverflow.chat', 'hackoverflow.services'
         'forum': 'Angular'
       },
       url: '/posts',
-      cache: false,
+      // cache: false,
       views: {
         'tab-posts': {
           templateUrl: 'js/posts/posts.html',
@@ -117,7 +117,7 @@ angular.module('starter', ['ionic', 'hackoverflow.chat', 'hackoverflow.services'
     })
     .state('tab.account', {
       url: '/account',
-      cache: false,
+      // cache: false,
       views: {
         'tab-account': {
           templateUrl: 'js/users/profile.html',
