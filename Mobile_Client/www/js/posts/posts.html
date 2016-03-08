@@ -30,7 +30,6 @@
 
     <div class="card">
       <div ui-sref="tab.posts-comments({post: post})" class="item item-text-wrap" ng-repeat="post in posts |
-        orderBy:'-post.created':true |
         filter: searchFor |
         filter: { forum: forum }">
         <h2 ng-bind="post.title"></h2>
