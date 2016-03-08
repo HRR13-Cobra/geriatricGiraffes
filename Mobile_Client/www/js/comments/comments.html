@@ -1,0 +1,65 @@
+<ion-view view-title="Forum">
+  <ion-content class="padding">
+
+    <div id="comments-container">
+
+      <!-- <div class="search comments-search">
+        <input ng-model="searchFor" placeholder="Search"/>
+      </div> -->
+
+      <div class="card">
+        <div class="item item-divider">
+          <span ng-bind="post.title"></span>
+        </div>
+        <div class="item item-text-wrap">
+          <p>Posted in
+            {{ post.forum }}</p>
+          <h3 ng-bind="post.body"></h3>
+
+          <p class="info">
+            <span ng-bind="post.author"></span>
+            -
+            {{ TimeService.relativeDate(post.created) }}
+            <span class="num-comments">
+              {{ comments.length }}
+              Comment{{+ comments.length !== 1 ? 's' : '' }}
+            </span>
+          </p>
+        </div>
+        <div class="item" ng-if="theUser === post.author">
+          <button class="button button-small button-positive" ui-sref="tab.posts-edit-post({ post: post })">
+            Edit Comment
+          </button>
+          <button class="button button-small button-assertive" ng-click="deletePost(post._id)">Delete
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="item item-text-wrap" ng-repeat="comment in comments | filter:searchFor">
+          <h3 ng-bind="comment.body"></h3>
+          <p class="info">
+            <span ng-bind="comment.author"></span>
+            -
+            {{ TimeService.relativeDate(comment.created) }}
+          </p>
+
+          <div ng-if="theUser === comment.author">
+            <button class="button button-small button-assertive" ng-click="deleteComment(post._id, comment._id)">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="list">
+        <form name="addCommentForm" ng-submit="submit(newCommentBody)">
+          <label class="item item-input">
+            <textarea ng-model="newCommentBody" required placeholder="The floor is yours."></textarea>
+          </label>
+          <button class="button button-block button-positive" type="submit">Post a Comment</button>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</ion-content>
+</ion-view>

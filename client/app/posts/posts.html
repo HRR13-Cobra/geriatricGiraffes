@@ -1,7 +1,6 @@
 <div ng-include="'app/header.html'"></div>
 
 <div id="posts-container">
-
   <div class="posts" ng-repeat="post in posts |
     orderBy:'-post.created':true |
     filter: searchFor |
@@ -10,9 +9,12 @@
     <a ui-sref="comments({post: post})">
       <h2 ng-bind="post.title"></h2></a>
       <p>
-        <span ng-bind="post.author"></span> -
+<!-- should dynamic author name be inserted? -->
+        <span id='username' ui-sref="profile({user: post.author})"ng-bind="post.author"></span> -
         {{ TimeService.relativeDate(post.created) }}
+
         <span class="num-comments"> {{ numberOfComments[post._id] }} Comment{{ + numberOfComments[post._id] !== 1 ? 's' : '' }}</span>
+        <span class="votes"> <span class="cursor" ng-click="upVote(post)"> <i class="tiny material-icons">thumb_up</i> </span> <span> {{post.votes}} Votes </span> </span>
       </p>
   </div>
 
@@ -33,5 +35,10 @@
       </p>
     </div>
 
+
+    <a ui-sref=".chat" id="chatBttn">Chat</a>
+    <div ui-view></div>
+
   </div>
 </div>
+

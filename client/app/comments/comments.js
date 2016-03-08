@@ -32,7 +32,7 @@ angular.module('hackoverflow.comments', [
     $state.go('posts');
   };
 
-  $scope.submit = function () {
+  $scope.submit = function (newCommentBody) {
     Comments.createComment($scope.post._id, $scope.newCommentBody, $rootScope.user, new Date());
     $scope.newCommentBody = '';
     $scope.getComments();

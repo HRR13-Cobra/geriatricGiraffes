@@ -1,47 +1,47 @@
 var commentController = require('./commentController.js');
-var Post       = require('../posts/postModel.js');
-var Comment    = require('./commentModel.js');
+var Post = require('../posts/postModel.js');
+var Comment = require('./commentModel.js');
 
 
-module.exports = function (app) {
+module.exports = function(app) {
 
-app.param('comment', function (req, res, next, id) {
-	var query = Comment.findById(id);
+  app.param('comment', function(req, res, next, id) {
+    var query = Comment.findById(id);
 
-	query.exec(function (err, comment) {
-		if (err) { 
-      return next(err); 
-    }
-		
-    if (!comment) { 
-      return next(new Error("can't find comment")); 
-    }
+    query.exec(function(err, comment) {
+      if (err) {
+        return next(err);
+      }
 
-		req.comment = comment;
-		return next();
-	});
-});
-	// Map logic to route parameter 'post'
-app.param('post', function (req, res, next, id) {
-	var query = Post.findById(id);
+      if (!comment) {
+        return next(new Error("can't find comment"));
+      }
 
-	query.exec(function (err, post) {
-		if (err) { 
-      return next(err); 
-    }
-		
-    if (!post) { 
-      return next(new Error("can't find post")); 
-    }
+      req.comment = comment;
+      return next();
+    });
+  });
+  // Map logic to route parameter 'post'
+  app.param('post', function(req, res, next, id) {
+    var query = Post.findById(id);
 
-		req.post = post;
-		return next();
-	});
-});
+    query.exec(function(err, post) {
+      if (err) {
+        return next(err);
+      }
 
-    app.get('/:post/comments', commentController.getComments);
-    app.get('/:post/commentsNumber', commentController.getNumberOfComments);
-    app.post('/:post/comments', commentController.newComment);
-    // app.put('/:id', commentController.editComment);
-    app.delete('/:post/comments/:comment', commentController.deleteComment);
+      if (!post) {
+        return next(new Error("can't find post"));
+      }
+
+      req.post = post;
+      return next();
+    });
+  });
+
+  app.get('/:post/comments', commentController.getComments);
+  app.get('/:post/commentsNumber', commentController.getNumberOfComments);
+  app.post('/:post/comments', commentController.newComment);
+  // app.put('/:id', commentController.editComment);
+  app.delete('/:post/comments/:comment', commentController.deleteComment);
 };

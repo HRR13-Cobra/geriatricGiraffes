@@ -1,11 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var cors = require('cors');
+
 var app = express();
+app.use(cors());
 
 //mongoose.connect('mongodb://localhost/hackoverflow'); //connect to mongo database
 
 var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/hackOverflow';
-
 //var dbURI = 'mongodb://localhost/MongoosePM';
 
 mongoose.connect(dbURI);
@@ -15,23 +17,23 @@ mongoose.connect(dbURI);
    ===============================================
  */
 
- // logs a connection
- mongoose.connection.on('connected', function () {
-   console.log('Mongoose connected to ' + dbURI);
- });
- 
- // logs when disconnected
- mongoose.connection.on('disconnected', function () {
-   console.log('Mongoose disconnected');
- });
+// logs a connection
+mongoose.connection.on('connected', function() {
+  console.log('Mongoose connected to ' + dbURI);
+});
 
- // logs when user terminates app
- process.on('SIGINIT', function () {
-   mongoose.connection.close(function () {
-     console.log('Mongoose disconnected through app termination');
-     process.exit(0);
-   });
- });
+// logs when disconnected
+mongoose.connection.on('disconnected', function() {
+  console.log('Mongoose disconnected');
+});
+
+// logs when user terminates app
+process.on('SIGINIT', function() {
+  mongoose.connection.close(function() {
+    console.log('Mongoose disconnected through app termination');
+    process.exit(0);
+  });
+});
 
 // configure our server with all the middleware and routing
 
@@ -41,15 +43,27 @@ require('./config/middleware.js')(app, express);
 
 //COMMENT OUT TO USE WITH MIDDLEWARE.JS
 
- //app.use(express.static(__dirname + '/../client'));
+//app.use(express.static(__dirname + '/../client'));
 
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 8100;
+// app.listen(port)
+var io = require ('socket.io').listen(app.listen(port));
 
-app.listen(port);
+
+io.on('connection', function(socket){  
+    console.log('SOCKET WORKING')
+    socket.on('send msg', function(msg){
+      io.emit('get msg', msg);
+      console.log("MSG",msg)
+    })
+  // socket.on('disconnect', function(){
+  //   console.log('user disconnected');
+  // });
+});
+
 
 module.exports = app;
-
 
 // Comments from Angular Server file.
 /* Walkthrough of the server

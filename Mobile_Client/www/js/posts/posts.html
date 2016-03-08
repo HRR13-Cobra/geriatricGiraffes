@@ -1,0 +1,48 @@
+<ion-view view-title="Forum">
+  <ion-content class="padding">
+
+    <div class="list">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-model="searchFor" type="text" placeholder="Search">
+      </label>
+    </div>
+
+    <div class="list">
+      <span class="forum">
+        {{ forum }}
+      </span>
+    </div>
+
+    <div class="list">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Select Category
+        </div>
+        <select ng-model="forumSelect" ng-change="switchForum(forumSelect)">
+          <option ng-repeat="forum in forums">{{ forum }}</option>
+        </select>
+      </label>
+      <button class="button button-block button-balanced" ui-sref="tab.posts-add-post">
+        Ask a Question
+      </button>
+    </div>
+
+    <div class="card">
+      <div ui-sref="tab.posts-comments({post: post})" class="item item-text-wrap" ng-repeat="post in posts |
+        orderBy:'-post.created':true |
+        filter: searchFor |
+        filter: { forum: forum }">
+        <h2 ng-bind="post.title"></h2>
+        <p>
+          <span ng-bind="post.author"></span>
+          -
+          {{ TimeService.relativeDate(post.created) }}
+          <span class="num-comments">
+            {{ numberOfComments[post._id] }}
+            Comment{{ + numberOfComments[post._id] !== 1 ? 's' : '' }}</span>
+        </p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -42,14 +42,17 @@ angular.module('hackoverflow.services', [])
   };
 
   var editPost = function(postId, title, body,
-    forum, author, created) {
+    forum, author, created, votes) {
+    votes = votes || 0;
+
     var editedPost = {
       postId: postId,
       title: title,
       body: body,
       forum: forum,
       author: author,
-      created: created
+      created: created,
+      votes: votes
     };
     console.log('edited post: ', editedPost);
 
@@ -101,6 +104,7 @@ angular.module('hackoverflow.services', [])
       return response;
     });
   };
+
 
   var createComment = function(postId, body, author, created) {
     var newComment = {
@@ -201,4 +205,12 @@ angular.module('hackoverflow.services', [])
   return {
     currentForum: currentForum
   };
-}]);
+}])
+
+//Added conection to socket/server
+.factory('socket', function() {
+
+  var socket = io.connect();
+  return socket;
+
+});
