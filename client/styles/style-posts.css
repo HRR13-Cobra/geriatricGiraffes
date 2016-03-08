@@ -21,14 +21,19 @@
 }
 
 .num-comments {
-  float: right;
   padding-top: 9px;
   font-weight: 600;
+  color: #939393;
+}
+
+.num-comments:hover{
+    color:#83c1e0;
 }
 
 .votes {
   font-weight: 600;
   padding-left: 170px;
+  float:right;
 }
 
 .sidebar {
@@ -95,4 +100,26 @@
 .profilePostContent {
   margin-left: 10px;
   margin-top: 5px;
+}
+
+#dropDownAuthor{
+  font-weight: 400;
+  color: #909090;
+}
+
+#dropDownAuthor:hover{
+  color:#83c1e0;
+}
+
+.dropDownComment {
+  font-weight: 100;
+  margin-top: 5px;
+}
+
+.dropDownCommentDivider {
+  clear:both;
+  margin-top: 8px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: #c0e0ef ;
 }

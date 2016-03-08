@@ -9,6 +9,7 @@ angular.module('hackoverflow.posts', [
   $scope.posts = [];
   $scope.forums = [];
   $scope.numberOfComments = {};
+  $scope.commentToggle = false;
   // $scope.numberOfVotes = {};
   $scope.forum = ForumService.currentForum.model.forum;
   $scope.TimeService = TimeService;

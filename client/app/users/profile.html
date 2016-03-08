@@ -9,7 +9,7 @@
 <div class="userBlock">
 <div class="twoColumns" style="float:left">
   <div class="content">
-  <h2 >{{userPosts.length}} Posts</h2>
+  <h2 class="profileTitle">{{userPosts.length}} Posts</h2>
     <div class="postProfileView" ng-repeat="post in userPosts | orderBy:post.created: latest">
     <div class="profilePostContent"><h4><div class='postname' ui-sref="comments({post: post})">{{post.title}}</div></h4>
     <span>{{ TimeService.relativeDate(post.created)}}</span></div>
@@ -19,7 +19,7 @@
 
 <div class="twoColumns" style="float:right">
 <div class="content">
-<h2>{{userComments.length}} Comments</h2>
+<h2 class="profileTitle">{{userComments.length}} Comments</h2>
   <div class="commentProfileView" ng-repeat="comment in userComments | orderBy:comment.created: latest">
   <div class="profilePostContent"><h4><div class='commentname' ui-sref="comments({post: comment.post})">{{comment.body}}</div></h4>
   <span>{{ TimeService.relativeDate(comment.created)}}</span>
