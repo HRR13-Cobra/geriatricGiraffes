@@ -9,9 +9,6 @@ angular.module('hackoverflow.auth', [
 .controller('AuthController',
   function($scope, $rootScope, $auth, $state, $window, Auth) {
 
-  console.log($rootScope.user);
-  //if ($rootScope.user)
-
   $scope.authenticate = function(provider) {
     $auth.logout();
     $auth.authenticate(provider)
@@ -26,5 +23,5 @@ angular.module('hackoverflow.auth', [
       .catch(function(response) {
         console.error('Cannot connect to GitHub: ', response);
       });
-  }
+  };
 });

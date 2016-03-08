@@ -5,11 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'hackoverflow.chat', 'hackoverflow.services',
+angular.module('starter', ['ionic', 'hackoverflow.chat', 'hackoverflow.services',
   'hackoverflow.posts',
   'hackoverflow.add-post',
   'hackoverflow.edit-post',
   'hackoverflow.comments',
+  'hackoverflow.profile',
   'ui.router',
   'ngSanitize',
   'hackoverflow.auth',
@@ -60,8 +61,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'hackoverflow.chat', 
 
   // Each tab has its own nav history stack:
   .state('tab.posts', {
+      params: {
+        'forum': 'Angular'
+      },
       url: '/posts',
-      cache: false,
+      // cache: false,
       views: {
         'tab-posts': {
           templateUrl: 'js/posts/posts.html',
@@ -75,6 +79,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'hackoverflow.chat', 
         'tab-posts': {
           templateUrl: 'js/posts/add-post.html',
           controller: 'AddPostController'
+        }
+      }
+    })
+    .state('tab.posts-edit-post', {
+      params: {
+        'post': null
+      },
+      url: '/edit-post',
+      views: {
+        'tab-posts': {
+          templateUrl: 'js/posts/add-post.html',
+          controller: 'EditPostController'
         }
       }
     })
@@ -101,11 +117,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'hackoverflow.chat', 
     })
     .state('tab.account', {
       url: '/account',
-      cache: false,
+      // cache: false,
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-account.html',
-          controller: 'AccountCtrl'
+          templateUrl: 'js/users/profile.html',
+          controller: 'UserController'
         }
       }
     });

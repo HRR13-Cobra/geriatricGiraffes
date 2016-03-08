@@ -6,23 +6,23 @@ angular.module('hackoverflow.services', [])
 
   var getForums = function() {
     return $http({
-      method: 'GET',
-      url: 'app/config/forums.json'
-    })
-    .then(function ( response ){
-      return response;
-    });
+        method: 'GET',
+        url: 'app/config/forums.json'
+      })
+      .then(function(response) {
+        return response;
+      });
   };
 
   var getPosts = function(forum) {
     return $http({
-      method: 'GET',
-      url: '/api/post/' + forum
-    })
-    .then(function ( response ){
-      return response;
+        method: 'GET',
+        url: '/api/post/' + forum
+      })
+      .then(function(response) {
+        return response;
       });
-    };
+  };
 
   var createPost = function(title, body, forum, author, created) {
     var newPost = {
@@ -42,14 +42,17 @@ angular.module('hackoverflow.services', [])
   };
 
   var editPost = function(postId, title, body,
-    forum, author, created) {
+    forum, author, created, votes) {
+    votes = votes || 0;
+
     var editedPost = {
       postId: postId,
       title: title,
       body: body,
       forum: forum,
       author: author,
-      created: created
+      created: created,
+      votes: votes
     };
     console.log('edited post: ', editedPost);
 
@@ -79,28 +82,29 @@ angular.module('hackoverflow.services', [])
 
 // COMMENTS
 
-.factory('Comments', function ( $http ) {
+.factory('Comments', function($http) {
 
   var getComments = function(postId) {
     console.log(postId + " is postId");
     return $http({
-      method: 'GET',
-      url: '/api/post/' + postId + '/comments'
-    })
-    .then(function(response) {
-      return response;
+        method: 'GET',
+        url: '/api/post/' + postId + '/comments'
+      })
+      .then(function(response) {
+        return response;
       });
-    };
+  };
 
   var getNumberOfComments = function(postId) {
     return $http({
-      method: 'GET',
-      url: '/api/post/' + postId + '/commentsNumber'
-    })
-    .then(function(response) {
-      return response;
-    });
+        method: 'GET',
+        url: '/api/post/' + postId + '/commentsNumber'
+      })
+      .then(function(response) {
+        return response;
+      });
   };
+
 
   var createComment = function(postId, body, author, created) {
     var newComment = {
@@ -151,18 +155,26 @@ angular.module('hackoverflow.services', [])
 
 .factory('Auth', function($http, $location, $window) {
 
+  var user = {};
+
   var getUser = function getUser() {
     return $http({
-      method: 'GET',
-      url: '/api/me/'
-    })
-    .then(function ( response ){
-      return response;
+        method: 'GET',
+        url: '/api/me/'
+      })
+      .then(function(response) {
+        user = response.data;
+        return response;
       });
-    };
+  };
+
+  var returnUser = function() {
+    return user;
+  };
 
   return {
-    getUser: getUser
+    getUser: getUser,
+    returnUser: returnUser
   };
 })
 
@@ -178,7 +190,7 @@ angular.module('hackoverflow.services', [])
 
 })
 
-.factory('ForumService', ['$rootScope', function ($rootScope) {
+.factory('ForumService', ['$rootScope', function($rootScope) {
 
   var currentForum = {
 
@@ -186,11 +198,11 @@ angular.module('hackoverflow.services', [])
       forum: 'Algorithms'
     },
 
-    SaveState: function () {
+    SaveState: function() {
       sessionStorage.ForumService = angular.toJson(currentForum.model);
     },
 
-    RestoreState: function () {
+    RestoreState: function() {
       currentForum.model = angular.fromJson(sessionStorage.ForumService);
     }
   };
@@ -210,4 +222,3 @@ angular.module('hackoverflow.services', [])
   return socket;
 
 });
-

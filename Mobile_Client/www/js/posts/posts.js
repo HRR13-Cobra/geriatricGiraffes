@@ -47,7 +47,6 @@ angular.module('hackoverflow.posts', [
 
   //http://stackoverflow.com/questions/27853431/ion-list-does-not-refresh-after-state-go-is-called
   $rootScope.$on('addedNewPost', function() {
-    console.log('I\'m listening');
     $scope.getPosts($scope.forum);
   });
 });

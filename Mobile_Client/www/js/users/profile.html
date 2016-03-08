@@ -1,0 +1,46 @@
+<ion-view view-title="Profile">
+  <ion-content class="padding">
+    <div class="list">
+      <button class="button button-assertive button-block" ng-click="logout()">
+        Log Out
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="item item-avatar">
+        <img src="{{user.picture}}">
+        <h2>{{user.displayName}}</h2>
+        <p>Hack Reactor Remote Student</p>
+      </div>
+
+    </div>
+
+    <div class="list">
+      <div class="item item-divider">
+        {{userPosts.length}}
+        Posts
+      </div>
+      <div ui-sref="tab.posts-comments({post: post})" ng-repeat="post in userPosts | orderBy:post.created: latest" class="item" href="#">
+        {{post.title}}
+        -
+        {{ TimeService.relativeDate(post.created)}}
+      </div>
+      <div class="item item-divider">
+        {{userComments.length}}
+        Comments
+      </div>
+      <div ng-repeat="comment in userComments | orderBy:comment.created: latest" class="item" href="#">
+        {{comment.body}}
+        -
+        {{ TimeService.relativeDate(comment.created)}}
+      </div>
+    </div>
+
+    <div id="chart"></div>
+
+    <!-- <div class="list card">
+      <svg id="userPosts" width="100%" height="500px"></svg>
+    </div> -->
+
+  </ion-content>
+</ion-view>

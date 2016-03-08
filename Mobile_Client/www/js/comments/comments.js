@@ -25,7 +25,7 @@ angular.module('hackoverflow.comments', [
   $scope.deleteComment = function deleteComment(postId, commentId) {
     Comments.deleteComment(postId, commentId);
     $scope.getComments();
-  };
+    };
 
   $scope.deletePost = function deletePost(postId) {
     Posts.deletePost(postId);
@@ -33,9 +33,9 @@ angular.module('hackoverflow.comments', [
     $state.go('tab.posts');
   };
 
-  $scope.submit = function () {
-    Comments.createComment($scope.post._id, $scope.newCommentBody, $rootScope.user, new Date());
-    $scope.newCommentBody = '';
+  $scope.submit = function (bodyText) {
+    Comments.createComment($scope.post._id, bodyText, $rootScope.user, new Date());
+    $scope.$$childTail.newCommentBody = null;
     $scope.getComments();
   };
 

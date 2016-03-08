@@ -3,61 +3,63 @@
 
     <div id="comments-container">
 
-      <div class="search comments-search">
+      <!-- <div class="search comments-search">
         <input ng-model="searchFor" placeholder="Search"/>
+      </div> -->
+
+      <div class="card">
+        <div class="item item-divider">
+          <span ng-bind="post.title"></span>
+        </div>
+        <div class="item item-text-wrap">
+          <p>Posted in
+            {{ post.forum }}</p>
+          <h3 ng-bind="post.body"></h3>
+
+          <p class="info">
+            <span ng-bind="post.author"></span>
+            -
+            {{ TimeService.relativeDate(post.created) }}
+            <span class="num-comments">
+              {{ comments.length }}
+              Comment{{+ comments.length !== 1 ? 's' : '' }}
+            </span>
+          </p>
+        </div>
+        <div class="item" ng-if="theUser === post.author">
+          <button class="button button-small button-positive" ui-sref="tab.posts-edit-post({ post: post })">
+            Edit Comment
+          </button>
+          <button class="button button-small button-assertive" ng-click="deletePost(post._id)">Delete
+          </button>
+        </div>
       </div>
 
-      <div class="comments-post">
-        <span class="post-forum">
-          {{ post.forum }}
-        </span>
-        <h2 ng-bind="post.title"></h2>
-        <p ng-bind="post.body"></p>
+      <div class="card">
+        <div class="item item-text-wrap" ng-repeat="comment in comments | filter:searchFor">
+          <h3 ng-bind="comment.body"></h3>
+          <p class="info">
+            <span ng-bind="comment.author"></span>
+            -
+            {{ TimeService.relativeDate(comment.created) }}
+          </p>
 
-        <p class="info">
-          <span ng-bind="post.author"></span>
-          -
-          {{ TimeService.relativeDate(post.created) }}
-          <span class="num-comments">
-            {{ comments.length }}
-            Comment
-            {{ + comments.length !== 1 ? 's' : '' }}
-          </span>
-        </p>
-
-        <div ng-if="theUser === post.author">
-          <a ui-sref="edit-post({ post: post })">
-            <span class="edit-delete">EDIT<span></a>
-              /
-              <span ng-click="deletePost(post._id)" class="edit-delete">DELETE</span>
-            </div>
-            <br/><br/>
+          <div ng-if="theUser === comment.author">
+            <button class="button button-small button-assertive" ng-click="deleteComment(post._id, comment._id)">Delete</button>
           </div>
-
-          <div>
-            <div class="comment" ng-repeat="comment in comments | filter:searchFor">
-              <p ng-bind="comment.body"></p>
-              <p class="info">
-                <span ng-bind="comment.author"></span>
-                -
-                {{ TimeService.relativeDate(comment.created) }}
-              </p>
-
-              <div ng-if="theUser === comment.author">
-                <span class="edit-delete" ng-click="deleteComment(post._id, comment._id)">DELETE</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="comment-form">
-            <form name="addCommentForm" ng-submit="submit()">
-              <textarea ng-model="newCommentBody" class="boxsizingBorder" required placeholder="The floor is yours."></textarea>
-              <button type="submit" ng-disabled="addCommentForm.$invalid" ng-Class="(newCommentBody) ? 'buttonEnabled' : 'buttonDisabled'">
-                Post a Comment
-              </button>
-            </form>
-          </div>
-
         </div>
-      </ion-content>
-    </ion-view>
+      </div>
+
+      <div class="list">
+        <form name="addCommentForm" ng-submit="submit(newCommentBody)">
+          <label class="item item-input">
+            <textarea ng-model="newCommentBody" required placeholder="The floor is yours."></textarea>
+          </label>
+          <button class="button button-block button-positive" type="submit">Post a Comment</button>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</ion-content>
+</ion-view>

@@ -3,24 +3,25 @@ angular.module('hackoverflow.posts', [
   'ui.router'
 ])
 
-.config(function ($httpProvider, $urlRouterProvider, $stateProvider) {
-})
+.config(function($httpProvider, $urlRouterProvider, $stateProvider) {})
 
-.controller('PostsController', function ($scope, $rootScope, $stateParams, $state, $window, Posts, Comments, TimeService, ForumService, Auth) {
+.controller('PostsController', function($scope, $rootScope, $stateParams, $state, Posts, Comments, TimeService, ForumService, Auth) {
   $scope.posts = [];
   $scope.forums = [];
   $scope.numberOfComments = {};
+  $scope.commentToggle = false;
+  // $scope.numberOfVotes = {};
   $scope.forum = ForumService.currentForum.model.forum;
   $scope.TimeService = TimeService;
 
-   Auth.getUser()
-      .then(function(response){
-        $rootScope.user = response.data.displayName;
-      });
+  Auth.getUser()
+    .then(function(response) {
+      $rootScope.user = response.data.displayName;
+    });
 
   $scope.getPosts = function getPosts(forum) {
     // TODO: need to pass in forum to Posts.getPosts()
-    Posts.getPosts('').then(function (data) {
+    Posts.getPosts('').then(function(data) {
       $scope.posts = data.data;
       // this creates an object $scope.numberOfComments that
       // keeps track of each posts number of comments. not
@@ -28,12 +29,19 @@ angular.module('hackoverflow.posts', [
       // about determining the number of comments.
       for (var i = 0; i < $scope.posts.length; i++) {
         $scope.posts[i].numberOfComments = $scope.getNumberOfComments($scope.posts[i]._id);
+        if (typeof $scope.posts[i].votes !== 'number') {
+          $scope.posts[i].votes = 0;
+        }
+        // $scope.posts[i].numberOfVotes = $scope.getNumberOfVotes($scope.posts[i]._id);
       }
     });
   };
+  $scope.setUsername = function(username) {
+    console.log('redirecting to...' + username);
 
+  };
   $scope.getForums = function getForums(forum) {
-    Posts.getForums().then(function (data) {
+    Posts.getForums().then(function(data) {
       $scope.forums = data.data.sort();
     });
   };
@@ -45,15 +53,21 @@ angular.module('hackoverflow.posts', [
   };
 
   $scope.getNumberOfComments = function getNumberOfComments(postId) {
-    Comments.getNumberOfComments(postId).then(function (data) {
+    Comments.getNumberOfComments(postId).then(function(data) {
       $scope.numberOfComments[postId] = data.data;
     });
   };
 
   //CREATE function that appends each message to the chatbox
-  $scope.sendChat = function sendChat(message){
-    $("#messages").append($("<li>").text(message))
-  }
+  $scope.sendChat = function sendChat(message) {
+    $("#messages").append($("<li>").text(message));
+  };
+
+  $scope.upVote = function(post) {
+    post.votes++;
+    Posts.editPost(post._id, $scope.title,
+      $scope.body, $scope.forum, $scope.author, new Date(), post.votes);
+  };
 
   $scope.getPosts($scope.forum);
   $scope.getForums();

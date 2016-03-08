@@ -34,14 +34,6 @@
   padding: 0;
 }
 
-.comment-form textarea {
-  width: 100%;
-  height: 200px;
-  padding: 20px 40px 30px 40px;
-  border: 1px #ccc solid;
-  font-size: 16px;
-  font-weight: 300;
-}
 
 .edit-delete {
   cursor: pointer;

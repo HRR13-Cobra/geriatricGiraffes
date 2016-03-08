@@ -10,8 +10,6 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var colors = require('colors');
 
-var config = require('./config');
-
 module.exports = function(app, express) {
   var userRouter = express.Router();
   var commentRouter = express.Router();
@@ -19,12 +17,6 @@ module.exports = function(app, express) {
 
   app.use(morgan('dev'));
 
-  // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
-  app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-  });
   app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -39,7 +31,6 @@ module.exports = function(app, express) {
   // app.use('someroute/someroute', helpers.decode);
   app.use(helpers.errorLogger);
   app.use(helpers.errorHandler);
-
 
   /*
    |--------------------------------------------------------------------------
@@ -56,7 +47,7 @@ module.exports = function(app, express) {
 
     var payload = null;
     try {
-      payload = jwt.decode(token, (config.TOKEN_SECRET || process.env.TOKEN_SECRET));
+      payload = jwt.decode(token, process.env.TOKEN_SECRET);
     } catch (err) {
       return res.status(401).send({
         message: err.message
@@ -72,7 +63,6 @@ module.exports = function(app, express) {
     next();
   }
 
-
   /*
    |--------------------------------------------------------------------------
    | Generate JSON Web Token
@@ -84,7 +74,7 @@ module.exports = function(app, express) {
       iat: moment().unix(),
       exp: moment().add(14, 'days').unix()
     };
-    return jwt.encode(payload, (config.TOKEN_SECRET || process.env.TOKEN_SECRET));
+    return jwt.encode(payload, process.env.TOKEN_SECRET);
   }
 
   /*
@@ -94,7 +84,6 @@ module.exports = function(app, express) {
    */
   app.get('/api/me', ensureAuthenticated, function(req, res) {
     User.findById(req.user, function(err, user) {
-      console.log('### user ensureAuthenticated', user);
       res.send(user);
     });
   });
@@ -107,7 +96,6 @@ module.exports = function(app, express) {
   // app.post('/api/me', ensureAuthenticated, function(req, res) {
   app.post('/api/me', ensureAuthenticated, function(req, res) {
     User.findById(req.user, function(err, user) {
-      console.log('### Finduser', user);
       // if (!user) {
       //   return res.status(400).send({
       //     message: 'User not found'
@@ -118,12 +106,10 @@ module.exports = function(app, express) {
       newuser.displayName = req.body.displayName;
       newuser.email = req.body.email || user.email;
       user.save(function(err, data) {
-        console.log('after user.save', data);
         res.status(200).send(data);
       });
     });
   });
-
 
   /*
    |--------------------------------------------------------------------------
@@ -133,12 +119,24 @@ module.exports = function(app, express) {
   app.post('/auth/github', function(req, res) {
     var accessTokenUrl = 'https://github.com/login/oauth/access_token';
     var userApiUrl = 'https://api.github.com/user';
-    var params = {
-      code: req.body.code,
-      client_id: req.body.clientId,
-      client_secret: config.GITHUB_SECRET || process.env.GITHUB_SECRET,
-      redirect_uri: req.body.redirectUri
-    };
+    console.log('\n\n### req.body.redirectUri ###\n\n', req.body.redirectUri);
+    if (req.body.redirectUri === 'http://localhost:8100') {
+      console.log('\n\n### Mobile user is being authenticated.\n\n');
+      var params = {
+        code: req.body.code,
+        client_id: req.body.clientId,
+        client_secret: process.env.GITHUB_MOBILE_SECRET,
+        redirect_uri: req.body.redirectUri
+      };
+    } else {
+      console.log('\n\n### Desktop user is being authenticated.\n\n');
+      var params = {
+        code: req.body.code,
+        client_id: req.body.clientId,
+        client_secret: process.env.GITHUB_SECRET,
+        redirect_uri: req.body.redirectUri
+      };
+    }
 
     // Step 1. Exchange authorization code for access token.
     request.get({
@@ -168,7 +166,7 @@ module.exports = function(app, express) {
               });
             }
             var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, (config.TOKEN_SECRET || process.env.TOKEN_SECRET));
+            var payload = jwt.decode(token, process.env.TOKEN_SECRET);
             User.findById(payload.sub, function(err, user) {
               if (!user) {
                 return res.status(400).send({
@@ -193,7 +191,6 @@ module.exports = function(app, express) {
             github: profile.id
           }, function(err, existingUser) {
             if (existingUser) {
-              console.log('hihihihi', existingUser);
               var token = createJWT(existingUser);
               return res.send({
                 token: token,
@@ -206,7 +203,6 @@ module.exports = function(app, express) {
               picture: profile.avatar_url,
               displayName: profile.name
             });
-            console.log('user before save step 3b', user);
             user.save(function(err, addded) {
               if (err) {
                 console.log('not saving user', err);
@@ -222,7 +218,6 @@ module.exports = function(app, express) {
       });
     });
   });
-
 
   /*
    |--------------------------------------------------------------------------
@@ -253,9 +248,6 @@ module.exports = function(app, express) {
       });
     });
   });
-
-
-
 
   //inject our routers into their respective route files
   require('../comments/commentRoutes.js')(commentRouter);

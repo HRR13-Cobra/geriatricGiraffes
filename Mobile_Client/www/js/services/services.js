@@ -117,7 +117,6 @@ angular.module('hackoverflow.services', [])
     });
   };
 
-
   // no edit comments for now. v2.
 
   // TODO: Edit Comments
@@ -159,14 +158,12 @@ angular.module('hackoverflow.services', [])
         url: 'http://hackoverflow2.herokuapp.com/api/me/'
       })
       .then(function(response) {
-        console.log('response.data', response.data);
         user = response.data;
         return response;
       });
   };
 
   var returnUser = function() {
-    console.log('return user', user);
     return user;
   };
 
@@ -191,15 +188,12 @@ angular.module('hackoverflow.services', [])
 .factory('ForumService', ['$rootScope', function($rootScope) {
 
   var currentForum = {
-
     model: {
       forum: 'Algorithms'
     },
-
     SaveState: function() {
       sessionStorage.ForumService = angular.toJson(currentForum.model);
     },
-
     RestoreState: function() {
       currentForum.model = angular.fromJson(sessionStorage.ForumService);
     }

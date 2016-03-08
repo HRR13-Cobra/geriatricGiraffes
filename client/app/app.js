@@ -1,7 +1,9 @@
 angular.module('hackoverflow', [
   'hackoverflow.chat',
+  'hackoverflow.profile',
   'hackoverflow.services',
   'hackoverflow.posts',
+  'hackoverflow.postsChart',
   'hackoverflow.add-post',
   'hackoverflow.edit-post',
   'hackoverflow.comments',
@@ -42,14 +44,20 @@ angular.module('hackoverflow', [
 .config(function($httpProvider, $urlRouterProvider,
 $stateProvider, $locationProvider, $authProvider) {
 
-  $authProvider.github({
-    clientId: '379777b89264293ccc3c'
-  });
+$authProvider.github({
+  clientId: '17d04f37a37c4405809d'
+});
 
 // $locationProvider.html5Mode(true);
 
 $urlRouterProvider.otherwise('signin');
 $stateProvider
+  .state('profile', {
+    params:{'user':null},
+    url: '/profile/',
+    templateUrl: 'app/users/profile.html',
+    controller: 'UserController',
+  })
   .state('posts', {
     params: {'forum': 'Angular'},
     url: '/',
@@ -77,11 +85,11 @@ $stateProvider
     params: {'post': null},
     url: '/comments',
     templateUrl: 'app/comments/comments.html',
-    controller: 'ChatController'
+    controller: 'CommentsController'
   })
   .state('signin', {
     url: '/signin',
     templateUrl: 'app/auth/signin.html',
     controller: 'AuthController'
-  })
+  });
 });

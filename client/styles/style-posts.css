@@ -21,8 +21,19 @@
 }
 
 .num-comments {
-  float: right;
+  padding-top: 9px;
   font-weight: 600;
+  color: #939393;
+}
+
+.num-comments:hover{
+    color:#83c1e0;
+}
+
+.votes {
+  font-weight: 600;
+  padding-left: 170px;
+  float:right;
 }
 
 .sidebar {
@@ -44,9 +55,71 @@
   position: relative;
 }
 
+.cursor, .sidebar {
+  cursor: pointer;
+}
+
 .forum {
   margin: 0 0 30px 0;
   font-size: 30px;
   font-weight: 300;
   color: #83c1e0;
+}
+
+#username:hover{
+  color:#83c1e0;
+}
+
+.vote:hover{
+  color:#83c1e0;
+}
+
+.postname:hover{
+  color:#83c1e0;
+}
+
+.commentname:hover{
+  color:#83c1e0;
+}
+
+.postname{
+  padding-top: 5px;
+}
+
+.commentname{
+  padding-top: 5px;
+}
+
+.postProfileView {
+  background-color: #f5f5f5;
+  margin: 0 0 5px 0px;
+  margin-right: 50px;
+  padding-top: 0px;
+}
+
+.profilePostContent {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#dropDownAuthor{
+  font-weight: 400;
+  color: #909090;
+}
+
+#dropDownAuthor:hover{
+  color:#83c1e0;
+}
+
+.dropDownComment {
+  font-weight: 100;
+  margin-top: 5px;
+}
+
+.dropDownCommentDivider {
+  clear:both;
+  margin-top: 8px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: #c0e0ef ;
 }

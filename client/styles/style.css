@@ -53,7 +53,7 @@ a:active {
 
 #chatBox {
   border-style: solid;
-  border-color: black;
+  border-color: #DDDDDD;
   border-width: 1px;
   height: 200px;
   overflow: auto;
@@ -67,7 +67,6 @@ a:active {
 
 button {
   display: inline-block;
-  margin: 14px 0 50px 40px;
   padding: 15px 32px;
   background-color: #83c1e0;
   border: none;
@@ -75,6 +74,10 @@ button {
   color: white;
   text-align: center;
   text-decoration: none;
+}
+
+#showOrderButton {
+  font-weight: 100;
 }
 
 .buttonEnabled {
@@ -91,4 +94,77 @@ button {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+.bar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+
+.bar text {
+  fill: #fff;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.twoColumns {
+  width:50%;
+  height: 500px;
+  overflow-y:scroll;
+  padding-bottom: 15px;
+}
+
+.userPhoto {
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 50px;
+}
+
+.userBanner {
+  /*background-color: #c0e0ef;*/
+  padding-top: 10px;
+  padding-bottom: 3px;
+  border-radius: 75px;
+  border-style: solid; 
+  border-color: #c0e0ef;
+  vertical-align: center;
+  margin-bottom: 40px;
+}
+
+.userContainer {
+  padding-left: 10px;
+}
+
+.contentBanner {
+  border-style: solid;
+  border-color: ;
+  clear: both;
+  border-color: #83c1e0;
+  margin-top: 7px;
+}
+
+.userBlock {
+  clear:both;
+  margin-left: 40px;
+}
+
+i.tiny.material-icons {
+    color:#939393;
+}
+
+i.tiny.material-icons:hover {
+    color:#83c1e0;
+}
+
+#numVotes {
+  color:#939393;
+  vertical-align: 20%;
+}
+
+.profileTitle {
+  text-align: center;
 }

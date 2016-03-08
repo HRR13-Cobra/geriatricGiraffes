@@ -1,11 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var cors = require('cors');
+
 var app = express();
+app.use(cors());
 
 //mongoose.connect('mongodb://localhost/hackoverflow'); //connect to mongo database
 
 var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/hackOverflow';
-
 //var dbURI = 'mongodb://localhost/MongoosePM';
 
 mongoose.connect(dbURI);
